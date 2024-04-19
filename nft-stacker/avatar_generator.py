@@ -7,7 +7,8 @@ from layer import Layer
 
 class AvatarGenerator:
     def __init__(self, images_path: str):
-        self.layers: List[Layer] = self.load_image_layers(images_path)
+        if (images_path != None):
+            self.layers: List[Layer] = self.load_image_layers(images_path)
         self.background_color = (120, 150, 180)
         self.rare_background_color = (255, 225, 150)
         self.rare_background_chance = 0.05
@@ -50,9 +51,9 @@ class AvatarGenerator:
         return image
     
     def render_custom_avatar_image(self, image_path_sequence: List[str]):
-        image = Image.new("RGBA", (24, 24), (0, 0, 0, 0))
+        image = Image.new("RGBA", (48, 48), (0, 0, 0, 0))
         for image_path in image_path_sequence:
-            layer_image = Image.open(image_path)
+            layer_image = Image.open(image_path).convert('RGBA')
             image = Image.alpha_composite(image, layer_image)
         return image
 
